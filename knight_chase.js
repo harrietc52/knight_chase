@@ -1,3 +1,19 @@
+var moveBlackKnight = function() {
+  $(this).html("&#9822;");
+  $(".green").addClass("black");
+  $(".green").removeClass("green");
+  $("#a8").html("&#x2717");
+  whiteToMove();
+};
+
+var moveWhiteKnight = function() {
+  $(this).html("&#9816;");
+  $(".green").addClass("black");
+  $(".green").removeClass("green");
+  $("#h1").html("&#x2717");
+  blackToMove();
+};
+
 var blackToMove = function () {
   $("#status_message").text("Black to move...");
   $("#start_button").hide();
@@ -6,11 +22,25 @@ var blackToMove = function () {
   var square;
   while (greenSquares.length > 0) {
     square = greenSquares.pop();
-    // console.log(square);
-    // console.log($("#" + square));
     $("#" + square).removeClass("white");
     $("#" + square).removeClass("black");
     $("#" + square).addClass("green");
+    $("#" + square).click(moveBlackKnight);
+  };
+};
+
+var whiteToMove = function () {
+  $("#status_message").text("White to move...");
+  $("#start_button").hide();
+  var whiteStartsAt = "h1";
+  var greenSquares = knightMoves(whiteStartsAt);
+  var square;
+  while (greenSquares.length > 0) {
+    square = greenSquares.pop();
+    $("#" + square).removeClass("white");
+    $("#" + square).removeClass("black");
+    $("#" + square).addClass("green");
+    $("#" + square).click(moveWhiteKnight);
   };
 };
 
