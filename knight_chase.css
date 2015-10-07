@@ -24,6 +24,7 @@ div.square {
  width: 80px;
  display: table-cell;
  font-size: 60px;
+ vertical-align: middle;
  text-align: center;
 }
 
