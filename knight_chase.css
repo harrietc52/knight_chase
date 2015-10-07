@@ -38,9 +38,17 @@ div.black {
 }
 
 div.green {
- background-color: #00AA00;
+ background-color: #88AA88;
 }
 
 div.green:hover {
-  background-color: #33DD33;
+  background-color: #88DD88;
+}
+
+div.lightgreen {
+ background-color: #BBDDBB;
+}
+
+div.lightgreen:hover {
+  background-color: #88DD88;
 }
