@@ -1,8 +1,14 @@
 console.log("JS loaded");
 
+var blackToMove = function () {
+  $("#status_message").text("Black to move...");
+  $("#start_button").hide();
+};
+
 var initializeBoard = function () {
   $("#a8").html("&#9822;");
   $("#h1").html("&#9816;");
+  blackToMove();
 };
 
 $("#start_button").click(initializeBoard);
