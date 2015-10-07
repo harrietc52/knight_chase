@@ -36,3 +36,11 @@ div.white {
 div.black {
  background-color: #AAAAAA;
 }
+
+div.green {
+ background-color: #00AA00;
+}
+
+div.green:hover {
+  background-color: #33DD33;
+}
