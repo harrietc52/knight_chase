@@ -1,0 +1,18 @@
+div#status_box {
+  background-color: #EEEEEE;
+  padding: 2px 10px 12px 10px;
+  margin-bottom: 12px
+}
+ div.square {
+   height: 50px;
+   width: 50px;
+   display: inline-block;
+ }
+
+ div.white {
+   background-color: #DDDDDD;
+ }
+
+ div.black {
+   background-color: #AAAAAA;
+ }
