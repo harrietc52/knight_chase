@@ -1,5 +1,7 @@
-var placeCounter = function(player) {
-  var myFunction = function() {
+var placeCounter = function (player) {
+  var myFunction = function () {
+    if ($(this).html() !== "&nbsp;") { return };
+    if ($(this)[0].id === lastPossibleMove(player)) { return };
     $(this).html("&#x2717");
     addToDeadList($(this)[0].id)
     $(".square").unbind();
@@ -12,23 +14,23 @@ var placeCounter = function(player) {
   return myFunction;
 };
 
-var moveKnight = function(player) {
-  var myFunction = function() {
-    $("." + greenShade(squareColour(player))).addClass(squareColour(player));
-    $("." + greenShade(squareColour(player))).unbind();
-    $("." + greenShade(squareColour(player))).removeClass(greenShade(squareColour(player)));
+var moveKnight = function (player) {
+  var myFunction = function () {
+    var whichGreen = greenShade(squareColour(player));
+    $("." + whichGreen).addClass(squareColour(player));
+    $("." + whichGreen).unbind();
+    $("." + whichGreen).removeClass(whichGreen);
     $("#" + knightIsAt(player)).html("&#x2717");
     addToDeadList(knightIsAt(player));
     $("#" + player + "_is_at").html($(this)[0].id)
     $("#" + player + "_square_colour").html(squareColour(player));
-    console.log("hi")
     if (player === "white") {
       $(this).html("&#9816;");
     } else {
       $(this).html("&#9822;");
     };
     var cappedPlayer = (player === "white") ? "White" : "Black";
-    $("#status_message").text(cappedPlayer + " place a counter");
+    $("#status_message").text(cappedPlayer + " to place a counter...");
     $(".square").click(placeCounter(player));
   };
   return myFunction;
@@ -67,7 +69,7 @@ var isInRange = function (array) {
   return((array[0] >= 0) && (array[0] <= 7) && (array[1] >= 0) && (array[1] <= 7))
 };
 
-var knightMoves = function(string) {
+var knightMoves = function (string) {
   var array = convertToCoords(string);
   var moves = [[2,1],[1,2],[2,-1],[1,-2],[-1,-2],[-2,-1],[-2,1],[-1,2]];
   var outArray = [];
@@ -80,12 +82,20 @@ var knightMoves = function(string) {
   return outArray;
 };
 
+var lastPossibleMove = function (player) {
+  var array = knightMoves(knightIsAt(player === "white" ? "black" : "white"));
+  if (array.length === 1) {
+    return array[0];
+  }
+  return null;
+}
+
 var knightIsAt = function (colour) {
   return $("#" + colour + "_is_at").html();
 };
 
 var squareColour = function (player) {
-  return $("#" + player + "_square_colour").html()  === "white" ? "black" : "white";
+  return $("#" + player + "_square_colour").html() === "white" ? "black" : "white";
 }
 
 var greenShade = function (colour) {
