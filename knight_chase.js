@@ -1,3 +1,17 @@
+var placeCounter = function(player) {
+  var myFunction = function() {
+    $(this).html("&#x2717");
+    addToDeadList($(this)[0].id)
+    $(".square").unbind();
+    if (player === "white") {
+      knightToMove("black");
+    } else {
+      knightToMove("white");
+    };
+  };
+  return myFunction;
+};
+
 var moveKnight = function(player) {
   var myFunction = function() {
     $("." + greenShade(squareColour(player))).addClass(squareColour(player));
@@ -7,13 +21,15 @@ var moveKnight = function(player) {
     addToDeadList(knightIsAt(player));
     $("#" + player + "_is_at").html($(this)[0].id)
     $("#" + player + "_square_colour").html(squareColour(player));
+    console.log("hi")
     if (player === "white") {
       $(this).html("&#9816;");
-      knightToMove("black");
     } else {
       $(this).html("&#9822;");
-      knightToMove("white");
     };
+    var cappedPlayer = (player === "white") ? "White" : "Black";
+    $("#status_message").text(cappedPlayer + " place a counter");
+    $(".square").click(placeCounter(player));
   };
   return myFunction;
 };
