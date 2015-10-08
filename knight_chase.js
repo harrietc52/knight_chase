@@ -33,6 +33,10 @@ var moveKnight = function (player) {
       declareWinner("black");
       return;
     };
+    if (knightMoves(knightIsAt(player)).length === 0) {
+      declareWinner("stalemate " + player);
+      return;
+    };
     if (anyMarkersLeft()) {
       $("#status_message").text(cappedPlayer(player) + " to place a marker...");
       updateMarkerCount();
@@ -51,6 +55,10 @@ var knightToMove = function (player) {
     updateEndOfGame();
   };
   var greenSquares = knightMoves(knightIsAt(player));
+  if (greenSquares.length === 0) {
+    declareWinner("stalemate " + player);
+    return;
+  };
   var square;
   while (greenSquares.length > 0) {
     square = greenSquares.pop();
@@ -85,8 +93,13 @@ var cleanBoard = function () {
 var declareWinner = function (winner) {
   if (winner === "black") {
     $("#status_message").text("Black has evaded capture. BLACK WINS!");
-  } else {
+  };
+  if (winner === "white"){
     $("#status_message").text("White has captured the black knight. WHITE WINS!");
+  };
+  if (winner[0] === 's') {
+    var player = cappedPlayer(winner.slice(10))
+    $("#status_message").text(player + " is blocked. BLACK WINS!");
   };
   $("#start_button").show();
   $("#markers_left").hide();
@@ -103,7 +116,7 @@ var updateEndOfGame = function () {
 };
 
 var anyMarkersLeft = function () {
-  return $("#dead_squares").html().length < 10;
+  return $("#dead_squares").html().length < 60;
 };
 
 var noMovesLeft = function () {
