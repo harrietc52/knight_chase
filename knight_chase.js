@@ -1,57 +1,41 @@
-var moveBlackKnight = function() {
-  $(this).html("&#9822;");
-  $("." + greenShade(blackSquareColour())).addClass(otherColour(blackSquareColour()));
-  $("." + greenShade(blackSquareColour())).unbind();
-  $("." + greenShade(blackSquareColour())).removeClass(greenShade(blackSquareColour()));
-  $("#" + blackIsAt()).html("&#x2717");
-  $("#black_is_at").html($(this)[0].id);
-  $("#black_square_colour").html(otherColour(blackSquareColour()));
-  whiteToMove();
-};
-
-var moveWhiteKnight = function() {
-  $(this).html("&#9816;");
-  $("." + greenShade(whiteSquareColour())).addClass(otherColour(whiteSquareColour()));
-  $("." + greenShade(whiteSquareColour())).unbind();
-  $("." + greenShade(whiteSquareColour())).removeClass(greenShade(whiteSquareColour()));
-  $("#" + whiteIsAt()).html("&#x2717");
-  $("#white_is_at").html($(this)[0].id)
-  $("#white_square_colour").html(otherColour(whiteSquareColour()));
-  blackToMove();
-};
-
-var blackToMove = function () {
-  $("#status_message").text("Black to move...");
-  $("#start_button").hide();
-  var greenSquares = knightMoves(blackIsAt());
-  var square;
-  while (greenSquares.length > 0) {
-    square = greenSquares.pop();
-    $("#" + square).removeClass("white");
-    $("#" + square).removeClass("black");
-    $("#" + square).addClass(greenShade(blackSquareColour()));
-    $("#" + square).click(moveBlackKnight);
+var moveKnight = function(player) {
+  var myFunction = function() {
+    $("." + greenShade(squareColour(player))).addClass(squareColour(player));
+    $("." + greenShade(squareColour(player))).unbind();
+    $("." + greenShade(squareColour(player))).removeClass(greenShade(squareColour(player)));
+    $("#" + isAt(player)).html("&#x2717");
+    $("#" + player + "_is_at").html($(this)[0].id)
+    $("#" + player + "_square_colour").html(squareColour(player));
+    if (player === "white") {
+      $(this).html("&#9816;");
+      console.log("help")
+      knightToMove("black");
+    } else {
+      $(this).html("&#9822;");
+      knightToMove("white");
+    };
   };
+  return myFunction;
 };
 
-var whiteToMove = function () {
-  $("#status_message").text("White to move...");
+var knightToMove = function (player) {
+  $("#status_message").text(player + " to move...");
   $("#start_button").hide();
-  var greenSquares = knightMoves(whiteIsAt());
+  var greenSquares = knightMoves(isAt(player));
   var square;
   while (greenSquares.length > 0) {
     square = greenSquares.pop();
     $("#" + square).removeClass("white");
     $("#" + square).removeClass("black");
-    $("#" + square).addClass(greenShade(whiteSquareColour()));
-    $("#" + square).click(moveWhiteKnight);
+    $("#" + square).addClass(greenShade(squareColour(player)));
+    $("#" + square).click(moveKnight(player));
   };
 };
 
 var initializeBoard = function () {
-  $("#" + blackIsAt()).html("&#9822;");
-  $("#" + whiteIsAt()).html("&#9816;");
-  blackToMove();
+  $("#" + isAt("black")).html("&#9822;");
+  $("#" + isAt("white")).html("&#9816;");
+  knightToMove("black");
 };
 
 var convertToCoords = function (string) {
@@ -78,28 +62,93 @@ var knightMoves = function(string) {
   return outArray;
 };
 
-var blackIsAt = function() {
-  return $("#black_is_at").html();
+var isAt = function(colour) {
+  return $("#" + colour + "_is_at").html();
 };
 
-var blackSquareColour = function() {
-  return $("#black_square_colour").html();
-};
-
-var whiteIsAt = function() {
-  return $("#white_is_at").html();
-};
-
-var whiteSquareColour = function() {
-  return $("#white_square_colour").html();
-};
-
-var otherColour = function(colour) {
-  return colour === "white" ? "black" : "white";
+var squareColour = function(player) {
+  return $("#" + player + "_square_colour").html()  === "white" ? "black" : "white";
 }
 
 var greenShade = function(colour) {
-  return colour === "black" ? "lightgreen" : "green";
+  return colour === "white" ? "lightgreen" : "green";
 }
 
 $("#start_button").click(initializeBoard);
+
+// if (player === "white") {
+//   $(this).html("&#9816;");
+//   console.log("white knight")
+// } else {
+//   $(this).html("&#9822;");
+// };
+
+// var moveBlackKnight = function() {
+//   $(this).html("&#9822;");
+//   $("." + greenShade(squareColour(colour))).addClass(otherColour(squareColour(colour)));
+//   $("." + greenShade(squareColour(colour))).unbind();
+//   $("." + greenShade(squareColour(colour))).removeClass(greenShade(squareColour(colour)));
+//   $("#" + isAt("black")).html("&#x2717");
+//   $("#black_is_at").html($(this)[0].id);
+//   $("#black_square_colour").html(otherColour(squareColour(colour)));
+//   whiteToMove();
+// };
+//
+// var moveWhiteKnight = function() {
+//   $(this).html("&#9816;");
+//   $("." + greenShade(squareColour(colour))).addClass(otherColour(squareColour(colour)));
+//   $("." + greenShade(squareColour(colour))).unbind();
+//   $("." + greenShade(squareColour(colour))).removeClass(greenShade(squareColour(colour)));
+//   $("#" + isAt("white")).html("&#x2717");
+//   $("#white_is_at").html($(this)[0].id)
+//   $("#white_square_colour").html(otherColour(squareColour(colour)));
+//   blackToMove();
+// };
+
+// var blackToMove = function () {
+//   $("#status_message").text("Black to move...");
+//   $("#start_button").hide();
+//   var greenSquares = knightMoves(isAt("black"));
+//   var square;
+//   while (greenSquares.length > 0) {
+//     square = greenSquares.pop();
+//     $("#" + square).removeClass("white");
+//     $("#" + square).removeClass("black");
+//     $("#" + square).addClass(greenShade(squareColour("black")));
+//     $("#" + square).click(moveKnight("black"));
+//   };
+// };
+//
+// var whiteToMove = function () {
+//   $("#status_message").text("White to move...");
+//   $("#start_button").hide();
+//   var greenSquares = knightMoves(isAt("white"));
+//   var square;
+//   while (greenSquares.length > 0) {
+//     square = greenSquares.pop();
+//     $("#" + square).removeClass("white");
+//     $("#" + square).removeClass("black");
+//     $("#" + square).addClass(greenShade(squareColour("white")));
+//     $("#" + square).click(moveKnight("white"));
+//   };
+// };
+
+// var blackIsAt = function() {
+//   return $("#black_is_at").html();
+// };
+
+// var blackSquareColour = function() {
+//   return $("#black_square_colour").html();
+// };
+//
+// var whiteIsAt = function() {
+//   return $("#white_is_at").html();
+// };
+
+// var whiteSquareColour = function() {
+//   return $("#white_square_colour").html();
+// };
+
+// var otherColour = function(colour) {
+//   return colour === "white" ? "black" : "white";
+// }
