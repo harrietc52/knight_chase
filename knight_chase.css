@@ -21,7 +21,7 @@ div#board {
 }
 
 div#rules {
-  float: right;
+  float: bottom;
   width: 400px;
   height: 360px;
   background-color: #EEEEEE;
