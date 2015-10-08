@@ -1,4 +1,4 @@
-var placeCounter = function (player) {
+var placeMarker = function (player) {
   return function () {
     if ($(this).html() !== "&nbsp;") { return };
     if ($(this).attr("id") === lastPossibleMove(player)) { return };
@@ -15,19 +15,33 @@ var moveKnight = function (player) {
     $("." + whichGreen).addClass(squareColour(player));
     $("." + whichGreen).unbind();
     $("." + whichGreen).removeClass(whichGreen);
-    $("#" + knightIsAt(player)).html("&#x2717");
-    addToDeadList(knightIsAt(player));
+    if (anyMarkersLeft()) {
+      $("#" + knightIsAt(player)).html("&#x2717");
+      addToDeadList(knightIsAt(player));
+    } else {
+      $("#" + knightIsAt(player)).html("&nbsp;");
+      addToEndOfGame();
+    };
     $("#" + player + "_is_at").html($(this).attr("id"))
     $("#" + player + "_square_colour").html(squareColour(player));
     $(this).html(knightChar(player));
-    $("#status_message").text(cappedPlayer(player) + " to place a counter...");
-    $(".square").click(placeCounter(player));
+    $("#status_message").text(cappedPlayer(player) + " to place a marker...");
+    if (anyMarkersLeft()) {
+      updateMarkerCount();
+      $(".square").click(placeMarker(player));
+    } else {
+      knightToMove(otherPlayer(player));
+    };
   };
 };
 
 var knightToMove = function (player) {
   $("#status_message").text(cappedPlayer(player) + " to move...");
-  $("#start_button").hide();
+  if (anyMarkersLeft()) {
+    updateMarkerCount();
+  } else {
+    updateEndOfGame();
+  };
   var greenSquares = knightMoves(knightIsAt(player));
   var square;
   while (greenSquares.length > 0) {
@@ -42,7 +56,21 @@ var knightToMove = function (player) {
 var initializeBoard = function () {
   $("#" + knightIsAt("black")).html(knightChar("black"));
   $("#" + knightIsAt("white")).html(knightChar("white"));
+  $("#start_button").hide();
+  $("#markers_left").show();
   knightToMove("black");
+};
+
+var updateMarkerCount = function () {
+  $("#markers_left").text((30 - $("#dead_squares").html().length/2) + " markers left");
+};
+
+var updateEndOfGame = function () {
+  $("#markers_left").text(Math.floor(10 - $("#end_of_game").html().length/2) + " moves left");
+};
+
+var anyMarkersLeft = function () {
+  return $("#dead_squares").html().length < 60;
 };
 
 var convertToCoords = function (string) {
@@ -102,10 +130,12 @@ var notOnDeadList = function (coords) {
 }
 
 var addToDeadList = function (squareString) {
-  console.log(squareString);
   squareString = $("#dead_squares").html() + squareString;
-  console.log(squareString);
   $("#dead_squares").html(squareString);
+}
+
+var addToEndOfGame = function () {
+  $("#end_of_game").html($("#end_of_game").html() + "X");
 }
 
 var knightChar = function (player) {

@@ -8,14 +8,15 @@
   <div id="status_box">
     <p id="status_message">Welcome to Knight Chase</p>
     <button id="start_button">START GAME</button>
+    <p hidden id="markers_left">30 markers left</p>
   </div>
   <div>
     <div hidden style="float: right" id="rules"><p style="font-size: 20px">Rules</p>
       <ul>
         <li>Black plays first, then the play alternates.</li>
         <li>Click on the green square you would like to move to.</li>
-        <li>After each move, place counter anywhere else on the board.</li>
-        <li>Each player has 30 counters.</li>
+        <li>After each move, place marker anywhere else on the board.</li>
+        <li>Each player has 30 markers.</li>
         <li>White wins by moving his knight onto the space occupied by the black knight.</li>
         <li>Black wins by avoiding capture.</li>
         <li>If all 30 markers are placed before there is a capture, white has ten more moves in which to capture the black knight.</li>
@@ -105,11 +106,12 @@
       <div class="square white" id="h1">&nbsp;</div>
     </div>
   </div>
-  <div  id="black_is_at">a8</div>
-  <div  id="black_square_colour">white</div>
-  <div  id="white_is_at">h1</div>
-  <div  id="white_square_colour">white</div>
-  <div  id="dead_squares"></div>
+  <div id="black_is_at">a8</div>
+  <div id="black_square_colour">white</div>
+  <div id="white_is_at">h1</div>
+  <div id="white_square_colour">white</div>
+  <div id="dead_squares"></div>
+  <div id="end_of_game"></div>
 </body>
 <script src="knight_chase.js"></script>
 </html>
