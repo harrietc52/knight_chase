@@ -25,8 +25,16 @@ var moveKnight = function (player) {
     $("#" + player + "_is_at").html($(this).attr("id"))
     $("#" + player + "_square_colour").html(squareColour(player));
     $(this).html(knightChar(player));
-    $("#status_message").text(cappedPlayer(player) + " to place a marker...");
+    if (knightIsAt("white") === knightIsAt("black")) {
+      declareWinner("white");
+      return;
+    };
+    if (noMovesLeft()) {
+      declareWinner("black");
+      return;
+    };
     if (anyMarkersLeft()) {
+      $("#status_message").text(cappedPlayer(player) + " to place a marker...");
       updateMarkerCount();
       $(".square").click(placeMarker(player));
     } else {
@@ -54,12 +62,37 @@ var knightToMove = function (player) {
 };
 
 var initializeBoard = function () {
+  cleanBoard();
   $("#" + knightIsAt("black")).html(knightChar("black"));
   $("#" + knightIsAt("white")).html(knightChar("white"));
   $("#start_button").hide();
   $("#markers_left").show();
   knightToMove("black");
 };
+
+var cleanBoard = function () {
+  $(".square").each(function () {
+    $(this).html("&nbsp;");
+  });
+  $("#black_is_at").html("a8");
+  $("#black_square_colour").html("white");
+  $("#white_is_at").html("h1");
+  $("#white_square_colour").html("white");
+  $("#dead_squares").html("");
+  $("#end_of_game").html("");
+};
+
+var declareWinner = function (winner) {
+  if (winner === "black") {
+    $("#status_message").text("Black has evaded capture. BLACK WINS!");
+  } else {
+    $("#status_message").text("White has captured the black knight. WHITE WINS!");
+  };
+  $("#start_button").show();
+  $("#markers_left").hide();
+};
+
+// helper functions
 
 var updateMarkerCount = function () {
   $("#markers_left").text((30 - $("#dead_squares").html().length/2) + " markers left");
@@ -70,7 +103,11 @@ var updateEndOfGame = function () {
 };
 
 var anyMarkersLeft = function () {
-  return $("#dead_squares").html().length < 60;
+  return $("#dead_squares").html().length < 10;
+};
+
+var noMovesLeft = function () {
+  return $("#end_of_game").html().length === 19;
 };
 
 var convertToCoords = function (string) {
