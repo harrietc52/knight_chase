@@ -32,6 +32,7 @@ div#board {
   width: 640px;
   height: 640px;
 }
+
 div.square {
  height: 80px;
  width: 80px;
@@ -67,6 +68,7 @@ div#rules {
   background-color: #dddddd;
   font: 19px/27px "Helvetica Neue", sans-serif;
 }
+
 p.colophon {
 	font-size: 15px;
 }
