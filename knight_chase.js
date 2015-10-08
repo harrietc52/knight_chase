@@ -5,6 +5,10 @@ var placeMarker = function (player) {
     $(this).html("&#x2717");
     addToDeadList($(this).attr("id"))
     $(".square").unbind();
+    if (knightMoves(knightIsAt(player)).length === 0) {
+      declareWinner("stalemate " + player);
+      return;
+    };
     knightToMove(otherPlayer(player));
   };
 };
@@ -112,7 +116,7 @@ var updateMarkerCount = function () {
 };
 
 var updateEndOfGame = function () {
-  $("#markers_left").text(Math.floor(10 - $("#end_of_game").html().length/2) + " moves left");
+  $("#markers_left").text("White has " + Math.floor(10 - $("#end_of_game").html().length/2) + " moves left");
 };
 
 var anyMarkersLeft = function () {
