@@ -1,44 +1,32 @@
 var placeCounter = function (player) {
-  var myFunction = function () {
+  return function () {
     if ($(this).html() !== "&nbsp;") { return };
-    if ($(this)[0].id === lastPossibleMove(player)) { return };
+    if ($(this).attr("id") === lastPossibleMove(player)) { return };
     $(this).html("&#x2717");
-    addToDeadList($(this)[0].id)
+    addToDeadList($(this).attr("id"))
     $(".square").unbind();
-    if (player === "white") {
-      knightToMove("black");
-    } else {
-      knightToMove("white");
-    };
+    knightToMove(otherPlayer(player));
   };
-  return myFunction;
 };
 
 var moveKnight = function (player) {
-  var myFunction = function () {
+  return function () {
     var whichGreen = greenShade(squareColour(player));
     $("." + whichGreen).addClass(squareColour(player));
     $("." + whichGreen).unbind();
     $("." + whichGreen).removeClass(whichGreen);
     $("#" + knightIsAt(player)).html("&#x2717");
     addToDeadList(knightIsAt(player));
-    $("#" + player + "_is_at").html($(this)[0].id)
+    $("#" + player + "_is_at").html($(this).attr("id"))
     $("#" + player + "_square_colour").html(squareColour(player));
-    if (player === "white") {
-      $(this).html("&#9816;");
-    } else {
-      $(this).html("&#9822;");
-    };
-    var cappedPlayer = (player === "white") ? "White" : "Black";
-    $("#status_message").text(cappedPlayer + " to place a counter...");
+    $(this).html(knightChar(player));
+    $("#status_message").text(cappedPlayer(player) + " to place a counter...");
     $(".square").click(placeCounter(player));
   };
-  return myFunction;
 };
 
 var knightToMove = function (player) {
-  var cappedPlayer = (player === "white") ? "White" : "Black";
-  $("#status_message").text(cappedPlayer + " to move...");
+  $("#status_message").text(cappedPlayer(player) + " to move...");
   $("#start_button").hide();
   var greenSquares = knightMoves(knightIsAt(player));
   var square;
@@ -52,8 +40,8 @@ var knightToMove = function (player) {
 };
 
 var initializeBoard = function () {
-  $("#" + knightIsAt("black")).html("&#9822;");
-  $("#" + knightIsAt("white")).html("&#9816;");
+  $("#" + knightIsAt("black")).html(knightChar("black"));
+  $("#" + knightIsAt("white")).html(knightChar("white"));
   knightToMove("black");
 };
 
@@ -83,7 +71,7 @@ var knightMoves = function (string) {
 };
 
 var lastPossibleMove = function (player) {
-  var array = knightMoves(knightIsAt(player === "white" ? "black" : "white"));
+  var array = knightMoves(knightIsAt(otherPlayer(player)));
   if (array.length === 1) {
     return array[0];
   }
@@ -95,7 +83,7 @@ var knightIsAt = function (colour) {
 };
 
 var squareColour = function (player) {
-  return $("#" + player + "_square_colour").html() === "white" ? "black" : "white";
+  return otherPlayer($("#" + player + "_square_colour").html());
 }
 
 var greenShade = function (colour) {
@@ -118,6 +106,18 @@ var addToDeadList = function (squareString) {
   squareString = $("#dead_squares").html() + squareString;
   console.log(squareString);
   $("#dead_squares").html(squareString);
+}
+
+var knightChar = function (player) {
+  return (player === "white") ? "&#9816;" : "&#9822;";
+}
+
+var cappedPlayer = function (player) {
+  return (player === "white") ? "White" : "Black";
+}
+
+var otherPlayer = function (player) {
+  return (player === "white") ? "black" : "white";
 }
 
 $("#start_button").click(initializeBoard);
