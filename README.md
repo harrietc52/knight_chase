@@ -4,7 +4,7 @@ A logical and strategic game from the book 'A Gamut of Games' by Sid Sackson. We
 
 This particular game is by Alex Randolph, and we couldn't find an online version. You need a checkboard, 2 large markers (Knights), and 30 smaller ones. The aim of the game is 'hide and seek' as one night tries to catch the other.
 
-The game: http://harrietc52.github.io/knight_chase/ 
+The game: http://harrietc52.github.io/knight_chase/
 
 ###The rules:
 
@@ -15,6 +15,8 @@ The game: http://harrietc52.github.io/knight_chase/
 - Winning the game: White wins by moving his knight onto the space occupied by the black knight. Black wins by avoiding capture.
 - If all 30 markers are placed before there is a capture, white has ten more moves in which to capture the black knight.
 - If either knight is blocked so that it cannot move, Black wins.
+
+Push any changes to branch gh-pages with ```git push origin gh-pages```
 
 By Harriet and Bat
 07/10/15
