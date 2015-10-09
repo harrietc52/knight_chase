@@ -16,7 +16,8 @@ The game: http://harrietc52.github.io/knight_chase/
 - If all 30 markers are placed before there is a capture, white has ten more moves in which to capture the black knight.
 - If either knight is blocked so that it cannot move, Black wins.
 
-Push any changes to branch gh-pages with ```git push origin gh-pages```
+Push any changes to gh-pages branch with ```git push origin gh-pages```
+
 
 By Harriet and Bat
 07/10/15
