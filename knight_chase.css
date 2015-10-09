@@ -22,14 +22,15 @@ div#board {
 
 div#rules {
   float: bottom;
-  width: 400px;
-  height: 360px;
+  width: 620px;
+  height: 270px;
   background-color: #EEEEEE;
   padding: 2px 10px 12px 10px;
   margin-bottom: 12px;
   font-size: 18px;
   font-family: sans-serif;
-  border: 1px solid #665544;
+  border-top: 1px solid #665544;
+  border-bottom: 1px solid #665544;
 }
 
 div.square {
