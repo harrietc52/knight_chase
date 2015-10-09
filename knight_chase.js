@@ -2,12 +2,12 @@
 
 var placeMarker = function (player) {
   return function () {
-    if ($(this).html() !== "") { return };
+    if ($(this).text() !== "") { return };
     if ($(this).attr("id") === lastPossibleMove(player)) { return };
     $(this).html("&#x2717");
     addToDeadList($(this).attr("id"))
     $(".square").unbind();
-    if (possKnightMoves(knightIsAt(player)).length === 0) {
+    if (knightIsBlocked(player)) {
       declareWinner(capped(player) + " is blocked. BLACK WINS!");
       return;
     };
@@ -17,21 +17,21 @@ var placeMarker = function (player) {
 
 var moveKnight = function (player) {
   return function () {
-    var whichGreen = greenShade(player);
-    $("." + whichGreen).addClass(squareColour(player));
-    $("." + whichGreen).unbind();
-    $("." + whichGreen).removeClass(whichGreen);
+    var greenClass = "." + greenShade(player);
+    $(greenClass).addClass(squareColour(player));
+    $(greenClass).unbind();
+    $(greenClass).removeClass(greenShade(player));
     if (anyMarkersLeft()) {
       $("#" + knightIsAt(player)).html("&#x2717");
       addToDeadList(knightIsAt(player));
     } else {
-      $("#" + knightIsAt(player)).html("");
+      $("#" + knightIsAt(player)).text("");
       addToEndOfGame();
     };
-    $("#" + player + "_is_at").html($(this).attr("id"))
-    $("#" + player + "_square_colour").html(squareColour(player));
+    $("#" + player + "_is_at").text($(this).attr("id"))
+    $("#" + player + "_square_colour").text(squareColour(player));
     $(this).html(knightChar(player));
-    if (knightIsAt("white") === knightIsAt("black")) {
+    if (whiteCapturesBlack()) {
       declareWinner("White has captured the black knight. WHITE WINS!");
       return;
     };
@@ -39,7 +39,7 @@ var moveKnight = function (player) {
       declareWinner("Black has evaded capture. BLACK WINS!");
       return;
     };
-    if (possKnightMoves(knightIsAt(player)).length === 0) {
+    if (knightIsBlocked(player)) {
       declareWinner(capped(player) + " is blocked. BLACK WINS!");
       return;
     };
@@ -60,35 +60,34 @@ var knightToMove = function (player) {
   } else {
     updateEndOfGame();
   };
-  var greenSquares = possKnightMoves(knightIsAt(player));
-  if (greenSquares.length === 0) {
+  if (knightIsBlocked(player)) {
     declareWinner(capped(player) + " is blocked. BLACK WINS!");
     return;
   };
-  var square;
+  var greenSquares = possKnightMoves(knightIsAt(player));
   while (greenSquares.length > 0) {
-    square = greenSquares.pop();
-    $("#" + square).removeClass("white");
-    $("#" + square).removeClass("black");
-    $("#" + square).addClass(greenShade(player));
-    $("#" + square).click(moveKnight(player));
+    var square = "#" + greenSquares.pop();
+    $(square).removeClass("white");
+    $(square).removeClass("black");
+    $(square).addClass(greenShade(player));
+    $(square).click(moveKnight(player));
   };
 };
 
 // starting, ending, resetting the game
 
 var initialiseBoard = function () {
-  $(".square").each(function () { $(this).html("") });
+  $(".square").each(function () { $(this).text("") });
   $("#a8").html(knightChar("black"));
   $("#h1").html(knightChar("white"));
   hideRules();
-  $("#black_is_at").html("a8");
-  $("#black_square_colour").html("white");
-  $("#white_is_at").html("h1");
-  $("#white_square_colour").html("white");
-  $("#dead_squares").html("");
-  $("#end_of_game").html("");
-  $("#start_button").html("RESET GAME");
+  $("#black_is_at").text("a8");
+  $("#black_square_colour").text("white");
+  $("#white_is_at").text("h1");
+  $("#white_square_colour").text("white");
+  $("#dead_squares").text("");
+  $("#end_of_game").text("");
+  $("#start_button").text("RESET GAME");
   $("#start_button").unbind();
   $("#start_button").click(resetGame);
   knightToMove("black");
@@ -96,7 +95,7 @@ var initialiseBoard = function () {
 
 var declareWinner = function (message) {
   $("#status_message").text(message);
-  $("#start_button").html("START GAME");
+  $("#start_button").text("START GAME");
   $("#start_button").unbind();
   $("#start_button").click(initialiseBoard);
 };
@@ -108,19 +107,17 @@ var resetGame = function () {
 // status box management
 
 var updateMarkerCount = function () {
-  var message = $("#status_message").text() + " ";
-  var marksLeft = 30 - $("#dead_squares").html().length/2;
-  message += marksLeft.toString();
+  var marksLeft = 30 - $("#dead_squares").text().length/2;
+  var message = " " + marksLeft.toString();
   message += (marksLeft === 1) ? " marker left." : " markers left.";
-  $("#status_message").text(message);
+  $("#status_message").append(message);
 };
 
 var updateEndOfGame = function () {
-  var message = $("#status_message").text() + " White has ";
-  var movesLeft = Math.floor(10 - $("#end_of_game").html().length/2);
-  message += movesLeft.toString();
+  var movesLeft = Math.floor(10 - $("#end_of_game").text().length/2);
+  var message = " White has " + movesLeft.toString();
   message += (movesLeft === 1) ? " move left." : " moves left.";
-  $("#status_message").text(message);
+  $("#status_message").append(message);
 };
 
 var showRules = function() {
@@ -172,7 +169,7 @@ var lastPossibleMove = function (player) {
 }
 
 var notOnDeadList = function (xy) {
-  var deadList = $("#dead_squares").html();
+  var deadList = $("#dead_squares").text();
   while (deadList.length > 0) {
     if (deadList.slice(0,2) === convertToSquareId(xy)) { return false }
     deadList = deadList.slice(2);
@@ -182,12 +179,20 @@ var notOnDeadList = function (xy) {
 
 // miscellaneous helper functions
 
+var knightIsBlocked = function (player) {
+  return (possKnightMoves(knightIsAt(player)).length === 0);
+};
+
+var whiteCapturesBlack = function () {
+  return (knightIsAt("white") === knightIsAt("black"));
+}
+
 var addToDeadList = function (squareString) {
   $("#dead_squares").append(squareString);
 };
 
 var anyMarkersLeft = function () {
-  return $("#dead_squares").html().length < 60;
+  return $("#dead_squares").text().length < 60;
 };
 
 var addToEndOfGame = function () {
@@ -195,11 +200,11 @@ var addToEndOfGame = function () {
 };
 
 var noMovesLeft = function () {
-  return $("#end_of_game").html().length === 19;
+  return $("#end_of_game").text().length === 19;
 };
 
 var knightIsAt = function (player) {
-  return $("#" + player + "_is_at").html();
+  return $("#" + player + "_is_at").text();
 };
 
 var greenShade = function (player) {
@@ -207,7 +212,7 @@ var greenShade = function (player) {
 };
 
 var squareColour = function (player) {
-  return other($("#" + player + "_square_colour").html());
+  return other($("#" + player + "_square_colour").text());
 };
 
 var knightChar = function (player) {
