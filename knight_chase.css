@@ -12,13 +12,14 @@ div#status_box {
   background-color: #dddddd;
   font: 21px/27px "Helvetica Neue", sans-serif;
 }
-
 button {
   height: 33px;
   padding:5px 10px;
+	margin-right: 5px;
+	margin-bottom: 10px;
   border: 1px solid #aaaaaa;
   background: #bbddbb;
-  font: 16px "Helvetica Neue", sans-serif;
+  font: 14px "Helvetica Neue", sans-serif;
 }
 button:hover {
 	background-color: #88dd88;
@@ -31,7 +32,6 @@ div#board {
   width: 640px;
   height: 640px;
 }
-
 div.square {
  height: 80px;
  width: 80px;
@@ -40,7 +40,6 @@ div.square {
  vertical-align: middle;
  text-align: center;
 }
-
 div.white {
  background-color: #dddddd;
 }
@@ -58,4 +57,24 @@ div.lightgreen {
 }
 div.lightgreen:hover {
   background-color: #88dd88;
+}
+
+div#rules {
+  width: 610px;
+	height: 629px;
+  padding: 1px 15px 10px 15px;
+  margin-top: 20px;
+  background-color: #dddddd;
+  font: 19px/27px "Helvetica Neue", sans-serif;
+}
+p.colophon {
+	font-size: 15px;
+}
+a{
+	color: #008800;
+	text-decoration: none;
+}
+a:hover{
+	color: #00aa00;
+	text-decoration: underline;
 }
