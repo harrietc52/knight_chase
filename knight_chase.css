@@ -1,38 +1,37 @@
-div#status_box {
-  width: 620px;
-  height: 89px;
-  background-color: #EEEEEE;
-  padding: 2px 10px 12px 10px;
-  margin-bottom: 12px;
-  font-size: 20px;
-  font-family: sans-serif;
-}
+body{
+	margin: 40px;
+	max-width: 720px;
+	background-color: #666666;
+	}
 
+div#status_box {
+  width: 610px;
+  height: 118px;
+  padding: 1px 15px 0px 15px;
+  margin-bottom: 20px;
+  background-color: #dddddd;
+  font: 21px/27px "Helvetica Neue", sans-serif;
+}
 button {
-  line-height: 1.5;
-  font-size: 14px;
-  font-family: sans-serif;
-  font-weight: bold;
+  height: 33px;
+  padding:5px 10px;
+	margin-right: 5px;
+	margin-bottom: 10px;
+  border: 1px solid #aaaaaa;
+  background: #bbddbb;
+  font: 14px "Helvetica Neue", sans-serif;
+}
+button:hover {
+	background-color: #88dd88;
+}
+button:active {
+  border: 1px solid #666666;
 }
 
 div#board {
   width: 640px;
   height: 640px;
 }
-
-div#rules {
-  float: bottom;
-  width: 620px;
-  height: 270px;
-  background-color: #EEEEEE;
-  padding: 2px 10px 12px 10px;
-  margin-bottom: 12px;
-  font-size: 18px;
-  font-family: sans-serif;
-  border-top: 1px solid #665544;
-  border-bottom: 1px solid #665544;
-}
-
 div.square {
  height: 80px;
  width: 80px;
@@ -41,27 +40,41 @@ div.square {
  vertical-align: middle;
  text-align: center;
 }
-
 div.white {
- background-color: #DDDDDD;
+ background-color: #dddddd;
 }
-
 div.black {
- background-color: #AAAAAA;
+ background-color: #aaaaaa;
 }
-
 div.green {
- background-color: #88AA88;
+ background-color: #88aa88;
 }
-
 div.green:hover {
-  background-color: #88DD88;
+  background-color: #88dd88;
 }
-
 div.lightgreen {
- background-color: #BBDDBB;
+ background-color: #bbddbb;
+}
+div.lightgreen:hover {
+  background-color: #88dd88;
 }
 
-div.lightgreen:hover {
-  background-color: #88DD88;
+div#rules {
+  width: 610px;
+	height: 629px;
+  padding: 1px 15px 10px 15px;
+  margin-top: 20px;
+  background-color: #dddddd;
+  font: 19px/27px "Helvetica Neue", sans-serif;
+}
+p.colophon {
+	font-size: 15px;
+}
+a{
+	color: #008800;
+	text-decoration: none;
+}
+a:hover{
+	color: #00aa00;
+	text-decoration: underline;
 }
