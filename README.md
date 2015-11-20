@@ -4,6 +4,8 @@ A logical and strategic game from the book 'A Gamut of Games' by Sid Sackson. We
 
 This particular game is by Alex Randolph, and we couldn't find an online version. You need a checkboard, 2 large markers (Knights), and 30 smaller ones. The aim of the game is 'hide and seek' as one night tries to catch the other.
 
+The game: http://harrietc52.github.io/knight_chase/
+
 ###The rules:
 
 - Each player places his knight in the space at the top right end of the row nearest to him. (This is done automatically on our interface.) The knights of thus started in opposite corners of the board, with the 30 smaller markers piled off the board.
