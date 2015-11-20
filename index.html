@@ -1,135 +1,121 @@
-<!DOCTYPE html>
 <html>
-  <head>
-    <title>Knight Chase</title>
-    <link rel="stylesheet" type="text/css" href="knight_chase.css">
-    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
-    <script src="knight_chase.js"></script>
-    <base target="_blank">
-  </head>
-  <body>
-    <div id="status_box">
-      <p id="status_message">Welcome to Knight Chase.</p>
-      <button id="start_button">START GAME</button>
-      <button id="rules_button">SHOW RULES</button>
+<head>
+<link rel="stylesheet" type="text/css" href="knight_chase.css">
+<title>Knight Chase</title>
+<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+</head>
+<body>
+  <div id="status_box">
+    <p id="status_message">Welcome to Knight Chase</p>
+    <button id="start_button">START GAME</button>
+    <p hidden id="markers_left">30 markers left</p>
+  </div>
+  <div>
+<<<<<<< HEAD
+    <div position: relative; id="rules"><p style="font-size: 20px">Rules</p>
+=======
+    <div hidden style="float: right" id="rules"><p style="font-size: 20px">Rules</p>
+>>>>>>> 1b88fa2839ed1f5197ff58c252d507b4d27ab804
+      <ul>
+        <li>Black plays first, then the play alternates.</li>
+        <li>Click on the green square you would like to move to.</li>
+        <li>After each move, place marker anywhere else on the board.</li>
+        <li>Each player has 30 markers.</li>
+        <li>White wins by moving his knight onto the space occupied by the black knight.</li>
+        <li>Black wins by avoiding capture.</li>
+        <li>If all 30 markers are placed before there is a capture, white has ten more moves in which to capture the black knight.</li>
+        <li>If either knight is blocked so that it cannot move, Black wins.</li>
+      </ul>
     </div>
-    <div id="board">
-      <div>
-        <div class="square white" id="a8">&#9822;</div>
-        <div class="square black" id="b8"></div>
-        <div class="square white" id="c8"></div>
-        <div class="square black" id="d8"></div>
-        <div class="square white" id="e8"></div>
-        <div class="square black" id="f8"></div>
-        <div class="square white" id="g8"></div>
-        <div class="square black" id="h8"></div>
-      </div>
-      <div>
-        <div class="square black" id="a7"></div>
-        <div class="square white" id="b7"></div>
-        <div class="square black" id="c7"></div>
-        <div class="square white" id="d7"></div>
-        <div class="square black" id="e7"></div>
-        <div class="square white" id="f7"></div>
-        <div class="square black" id="g7"></div>
-        <div class="square white" id="h7"></div>
-      </div>
-      <div>
-        <div class="square white" id="a6"></div>
-        <div class="square black" id="b6"></div>
-        <div class="square white" id="c6"></div>
-        <div class="square black" id="d6"></div>
-        <div class="square white" id="e6"></div>
-        <div class="square black" id="f6"></div>
-        <div class="square white" id="g6"></div>
-        <div class="square black" id="h6"></div>
-      </div>
-      <div>
-        <div class="square black" id="a5"></div>
-        <div class="square white" id="b5"></div>
-        <div class="square black" id="c5"></div>
-        <div class="square white" id="d5"></div>
-        <div class="square black" id="e5"></div>
-        <div class="square white" id="f5"></div>
-        <div class="square black" id="g5"></div>
-        <div class="square white" id="h5"></div>
-      </div>
-      <div>
-        <div class="square white" id="a4"></div>
-        <div class="square black" id="b4"></div>
-        <div class="square white" id="c4"></div>
-        <div class="square black" id="d4"></div>
-        <div class="square white" id="e4"></div>
-        <div class="square black" id="f4"></div>
-        <div class="square white" id="g4"></div>
-        <div class="square black" id="h4"></div>
-      </div>
-      <div>
-        <div class="square black" id="a3"></div>
-        <div class="square white" id="b3"></div>
-        <div class="square black" id="c3"></div>
-        <div class="square white" id="d3"></div>
-        <div class="square black" id="e3"></div>
-        <div class="square white" id="f3"></div>
-        <div class="square black" id="g3"></div>
-        <div class="square white" id="h3"></div>
-      </div>
-      <div>
-        <div class="square white" id="a2"></div>
-        <div class="square black" id="b2"></div>
-        <div class="square white" id="c2"></div>
-        <div class="square black" id="d2"></div>
-        <div class="square white" id="e2"></div>
-        <div class="square black" id="f2"></div>
-        <div class="square white" id="g2"></div>
-        <div class="square black" id="h2"></div>
-      </div>
-      <div>
-        <div class="square black" id="a1"></div>
-        <div class="square white" id="b1"></div>
-        <div class="square black" id="c1"></div>
-        <div class="square white" id="d1"></div>
-        <div class="square black" id="e1"></div>
-        <div class="square white" id="f1"></div>
-        <div class="square black" id="g1"></div>
-        <div class="square white" id="h1">&#9816;</div>
-      </div>
+  </div>
+  <div id="board">
+    <div class="row">
+      <div class="square white" id="a8">&nbsp;</div>
+      <div class="square black" id="b8">&nbsp;</div>
+      <div class="square white" id="c8">&nbsp;</div>
+      <div class="square black" id="d8">&nbsp;</div>
+      <div class="square white" id="e8">&nbsp;</div>
+      <div class="square black" id="f8">&nbsp;</div>
+      <div class="square white" id="g8">&nbsp;</div>
+      <div class="square black" id="h8">&nbsp;</div>
     </div>
-    <div hidden id="rules">
-      <p>Knight Chase is an unusual two-player strategy game invented by
-        <a href="https://en.wikipedia.org/wiki/Alex_Randolph">Alexander
-        Randolph</a>. It is described in Sid Sackson's classic 1969 compendium
-        <a href="https://en.wikipedia.org/wiki/A_Gamut_of_Games">A Gamut Of
-        Games</a>.</p>
-      <p>Each player has a <strong>knight</strong> which moves as in
-        <a href="https://en.wikipedia.org/wiki/Knight_(chess)">chess</a>. Black
-        moves first. White has to capture Black to win. Black wins by evading
-        capture.</p>
-      <p>There are 30 <strong>markers</strong> which are placed on the board
-        as the game progresses. Players cannot move on to marked squares.</p>
-      <p>Two markers get placed on each turn. The first goes on the square
-        vacated by the player's knight. The second goes on a square of the
-        player's choosing. The only proviso is that you are not allowed to
-        mark a square if doing so would  completely block your opponent.</p>
-      <p>Once all 30 markers have been placed, White has 10 moves left in
-        which to capture Black – otherwise Black has won. If either player gets
-        completely blocked at any point in the game, Black wins.
-        </p>
-        <button id="done_button">BACK TO THE GAME</button>
-      <hr/>
-      <p class="colophon">This implementation of Knight Chase was coded in
-        JavaScript by <a href="https://github.com/harrietc52">Harriet Craven</a>
-        and <a href="https://github.com/bat020">Anindya Bhattacharyya</a> as
-        part of the <a href="http://www.makersacademy.com/">Makers Academy</a>
-        course, October 2015.
+    <div class="row">
+      <div class="square black" id="a7">&nbsp;</div>
+      <div class="square white" id="b7">&nbsp;</div>
+      <div class="square black" id="c7">&nbsp;</div>
+      <div class="square white" id="d7">&nbsp;</div>
+      <div class="square black" id="e7">&nbsp;</div>
+      <div class="square white" id="f7">&nbsp;</div>
+      <div class="square black" id="g7">&nbsp;</div>
+      <div class="square white" id="h7">&nbsp;</div>
     </div>
-    <div hidden>
-      <div id="black_is_at">a8</div>
-      <div id="black_square_colour">white</div>
-      <div id="white_is_at">h1</div>
-      <div id="white_square_colour">white</div>
-      <div id="dead_squares"></div>
-      <div id="end_of_game"></div>
+    <div class="row">
+      <div class="square white" id="a6">&nbsp;</div>
+      <div class="square black" id="b6">&nbsp;</div>
+      <div class="square white" id="c6">&nbsp;</div>
+      <div class="square black" id="d6">&nbsp;</div>
+      <div class="square white" id="e6">&nbsp;</div>
+      <div class="square black" id="f6">&nbsp;</div>
+      <div class="square white" id="g6">&nbsp;</div>
+      <div class="square black" id="h6">&nbsp;</div>
     </div>
-  </body>
+    <div class="row">
+      <div class="square black" id="a5">&nbsp;</div>
+      <div class="square white" id="b5">&nbsp;</div>
+      <div class="square black" id="c5">&nbsp;</div>
+      <div class="square white" id="d5">&nbsp;</div>
+      <div class="square black" id="e5">&nbsp;</div>
+      <div class="square white" id="f5">&nbsp;</div>
+      <div class="square black" id="g5">&nbsp;</div>
+      <div class="square white" id="h5">&nbsp;</div>
+    </div>
+    <div class="row">
+      <div class="square white" id="a4">&nbsp;</div>
+      <div class="square black" id="b4">&nbsp;</div>
+      <div class="square white" id="c4">&nbsp;</div>
+      <div class="square black" id="d4">&nbsp;</div>
+      <div class="square white" id="e4">&nbsp;</div>
+      <div class="square black" id="f4">&nbsp;</div>
+      <div class="square white" id="g4">&nbsp;</div>
+      <div class="square black" id="h4">&nbsp;</div>
+    </div>
+    <div class="row">
+      <div class="square black" id="a3">&nbsp;</div>
+      <div class="square white" id="b3">&nbsp;</div>
+      <div class="square black" id="c3">&nbsp;</div>
+      <div class="square white" id="d3">&nbsp;</div>
+      <div class="square black" id="e3">&nbsp;</div>
+      <div class="square white" id="f3">&nbsp;</div>
+      <div class="square black" id="g3">&nbsp;</div>
+      <div class="square white" id="h3">&nbsp;</div>
+    </div>
+    <div class="row">
+      <div class="square white" id="a2">&nbsp;</div>
+      <div class="square black" id="b2">&nbsp;</div>
+      <div class="square white" id="c2">&nbsp;</div>
+      <div class="square black" id="d2">&nbsp;</div>
+      <div class="square white" id="e2">&nbsp;</div>
+      <div class="square black" id="f2">&nbsp;</div>
+      <div class="square white" id="g2">&nbsp;</div>
+      <div class="square black" id="h2">&nbsp;</div>
+    </div>
+    <div class="row">
+      <div class="square black" id="a1">&nbsp;</div>
+      <div class="square white" id="b1">&nbsp;</div>
+      <div class="square black" id="c1">&nbsp;</div>
+      <div class="square white" id="d1">&nbsp;</div>
+      <div class="square black" id="e1">&nbsp;</div>
+      <div class="square white" id="f1">&nbsp;</div>
+      <div class="square black" id="g1">&nbsp;</div>
+      <div class="square white" id="h1">&nbsp;</div>
+    </div>
+  </div>
+  <div hidden id="black_is_at">a8</div>
+  <div hidden id="black_square_colour">white</div>
+  <div hidden id="white_is_at">h1</div>
+  <div hidden id="white_square_colour">white</div>
+  <div hidden id="dead_squares"></div>
+  <div hidden id="end_of_game"></div>
+</body>
+<script src="knight_chase.js"></script>
 </html>
