@@ -11,7 +11,7 @@ The game: http://harrietc52.github.io/knight_chase/
 - Each player places his knight in the space at the top right end of the row nearest to him. (This is done automatically on our interface.) The knights of thus started in opposite corners of the board, with the 30 smaller markers piled off the board.
 - Black plays first, and then play alternates. (Again the interface will instruct this.)
 - The play consists of moving the knight, in a knight's move, to an empty space and the placing two markers. One marker must be placed in the space vacated by the knight, the other can be placed in any empty space as the player wishes, except if it is the last space the opponent can move to.
-- After all markers have been places, turns consists of moving th knight for the duration of the game.
+- After all markers have been places, turns consists of moving the knight for the duration of the game.
 - Winning the game: White wins by moving his knight onto the space occupied by the black knight. Black wins by avoiding capture.
 - If all 30 markers are placed before there is a capture, white has ten more moves in which to capture the black knight.
 - If either knight is blocked so that it cannot move, Black wins.
